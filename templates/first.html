@@ -75,9 +75,9 @@ body {
                   Dropdown link
                 </a>
               <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+          </button>
              
               </div>
 
@@ -88,8 +88,35 @@ body {
       
       <div>
 
-   
-   <!-- Modal -->
+  
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+              <th scope="col">check</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            {% for product in products %}
+            <tr>
+              <th scope="row">{{}}</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+              
+            {% endfor %}
+              
+       
+          </tbody>
+        </table>
+      </div>  
+        <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -98,33 +125,33 @@ body {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form method="post">
+              {% csrf_token %}
               <div class="mb-3">
                   <label  class="form-label">Désignation</label>
-                  <input type="name" class="form-control">
+                  <input type="name" name="designation" class="form-control" required>
 
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Référence</label>
-                  <input type="name" class="form-control">
+                  <input type="name" class="form-control" name="reference" required>
                 </div>
               <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Serial Numbers</label>
-                  <input type="name" class="form-control">
+                  <input type="name" class="form-control" name="serial" required>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Destination</label>
-                  <input type="name" class="form-control">
+                  <input type="name" class="form-control" name="destination" required>
                
                 </div>
 
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button  class="btn btn-primary">Save changes</button>
+              </div>
+            </form> 
       </div>
     </div>
   </div>

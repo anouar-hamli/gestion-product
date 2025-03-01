@@ -3,19 +3,29 @@ from django.contrib.auth import authenticate, login ,logout
 from .forms import FormLogin  
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from .models import Product
 
 def home(request):
-   return  render(request, "first.html")
-
-@login_required
-def bonne_de_sortie(request):
     if request.method == "POST":
-        print(request.POST)
         designation =request.POST.get("designation")
         reference=request.POST.get("reference")
         serial=request.POST.get("serial")
         destination=request.POST.get("destination")
-        print(designation)
+        product = Product(destignation=designation, referance=reference, serial_number=serial, destination=destination)
+        product.save()
+    products = Product.objects.all()
+    contxet={
+        "products": products
+    }
+    return  render(request, "first.html",context=contxet)
+
+@login_required
+def bonne_de_sortie(request):
+    if request.method == "POST":
+        designation =request.POST.get("designation")
+        reference=request.POST.get("reference")
+        serial=request.POST.get("serial")
+        destination=request.POST.get("destination")
     return render(request, "bonne_de_sortie/index.html")
 
 @login_required
@@ -45,8 +55,4 @@ def logoutView(request):
 
 
 
-# crud product
-def create(request):
-    return render(request,"")
-    
  
