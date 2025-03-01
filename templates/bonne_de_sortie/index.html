@@ -202,12 +202,15 @@
             <th>Serial Numbers</th>
             <th>Destination</th>
         </tr>
-        <tr>
-            <td><input type="text" name="designation"></td>
-            <td><input type="text" name="reference"></td>
+        {% for product in  groupe_products%}
+        <tr>                
+            
+            <td><input type="text" name="designation" value="{{product.destignation}}"></td>
+            <td><input type="text" name="reference" value="{{product.referance}}"></td>
             <td><input type="text" name="serial"></td>
             <td><input type="text" name="destination"></td>
         </tr>
+        {% endfor %}
     </table>
 
     

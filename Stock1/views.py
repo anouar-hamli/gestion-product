@@ -7,12 +7,23 @@ from .models import Product
 
 def home(request):
     if request.method == "POST":
-        designation =request.POST.get("designation")
-        reference=request.POST.get("reference")
-        serial=request.POST.get("serial")
-        destination=request.POST.get("destination")
-        product = Product(destignation=designation, referance=reference, serial_number=serial, destination=destination)
-        product.save()
+        if request.POST.get('action') == "create_product":
+            designation =request.POST.get("designation")
+            reference=request.POST.get("reference")
+            serial=request.POST.get("serial")
+            destination=request.POST.get("destination")
+            product = Product(destignation=designation, referance=reference, serial_number=serial, destination=destination)
+            product.save()
+        if request.POST.get('action') == "print_bon":
+            product_ids = request.POST.getlist('choix')  
+            groupe_products =[]
+            for product in product_ids:
+                groupe_products.append(Product.objects.get(id=product))
+            context ={
+                    "groupe_products":groupe_products
+            }
+            return render(request, "bonne_de_sortie/index.html",context=context)
+       
     products = Product.objects.all()
     contxet={
         "products": products
