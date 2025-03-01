@@ -104,10 +104,11 @@ body {
             
             {% for product in products %}
             <tr>
-              <th scope="row">{{}}</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <th scope="row">{{product.destignation}}</th>
+              <td>{{product.referance}}</td>
+              <td>{{product.serial_number}}</td>
+              <td>{{product.destination}}</td>
+              <td></td>
             </tr>
               
             {% endfor %}
