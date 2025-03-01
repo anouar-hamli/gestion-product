@@ -93,6 +93,20 @@ body {
 
   
       <div class="container">
+        <form method="post">
+          
+        {% csrf_token %}
+        <input type="hidden" name="action" value="cherche">
+        <div class="row">
+          
+      <div class="input-group mb-3 my-2">
+        <input type="text" class="form-control" placeholder="recherche par serial" name="search">
+        <div class="input-group-append">
+          <button class="btn btn-primary" id="basic-addon2">rechreche</button>
+        </div>
+      </div>
+        </div>
+      </form>
         <table class="table">
           <thead>
             <tr>

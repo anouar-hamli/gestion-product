@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Product
 
 def home(request):
+    products = Product.objects.all()
+
     if request.method == "POST":
         if request.POST.get('action') == "create_product":
             designation =request.POST.get("designation")
@@ -23,8 +25,10 @@ def home(request):
                     "groupe_products":groupe_products
             }
             return render(request, "bonne_de_sortie/index.html",context=context)
-       
-    products = Product.objects.all()
+        if request.POST.get('action') == "cherche":
+            search = request.POST.get('search')
+            products = Product.objects.filter(serial_number=search)
+            
     contxet={
         "products": products
     }
