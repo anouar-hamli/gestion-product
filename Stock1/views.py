@@ -4,7 +4,6 @@ from .forms import FormLogin
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
-@login_required
 def home(request):
    return  render(request, "first.html")
 
@@ -43,5 +42,11 @@ def loginView(request):
 def logoutView(request):
     logout(request)  
     return redirect("login")  
+
+
+
+# crud product
+def create(request):
+    return render(request,"")
     
  
