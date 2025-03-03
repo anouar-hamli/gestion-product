@@ -1,178 +1,196 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      /*****************
-    - Header -
-*****************/
-header {
-	position:relative;
-	left:0;
-	top:0;
-	width:100%;
-	min-height:120px;
-	padding:50px 0;
-	color:#fff;
-	    background: #383838 url(https://www.athenadesignstudio.com/plugins/switch/images/bg.jpg) no-repeat center center;
-	margin-bottom:30px
-}
+        /*****************
+        - Header -
+        *****************/
+        header {
+            position:relative;
+            left:0;
+            top:0;
+            width:100%;
+            min-height:120px;
+            padding:50px 0;
+            color:#fff;
+            background: #383838 url(https://www.athenadesignstudio.com/plugins/switch/images/bg.jpg) no-repeat center center;
+            margin-bottom:30px
+        }
 
-/* Logo */
-header .logo {
-	clear:both;
-    display:block;
-	text-align:center;
-    padding-bottom:10px;
-}
+        /* Logo */
+        header .logo {
+            clear:both;
+            display:block;
+            text-align:center;
+            padding-bottom:10px;
+        }
 
-/* Title */
-header h1 {
-    font-weight:300;
-    font-size:24px;
-    color:#eee;	
-	letter-spacing:2px;
-	text-align:center;
-	text-transform:uppercase;
-	margin:0 !important;
-	padding-bottom:25px;
-}
+        /* Title */
+        header h1 {
+            font-weight:300;
+            font-size:24px;
+            color:#eee;	
+            letter-spacing:2px;
+            text-align:center;
+            text-transform:uppercase;
+            margin:0 !important;
+            padding-bottom:25px;
+        }
 
+        body {
+            background-color: #F1F2F3;
+        }
 
-
-body {
-    background-color: #F1F2F3;
-}
-
-.container-fluid,
-.container {
-    max-width: 1200px;
-}
-
-
-
+        .container-fluid,
+        .container {
+            max-width: 1200px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     
-    <!-- header -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img src="{% static 'assets/images/logo.png'%}" width="110px" alt="">
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-         
-              <!-- Button trigger modal -->
-          <div class="d-flex">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Launch demo modal
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'assets/images/logo.png' %}" width="110px" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="print_bon">
-              print
-            </button>
-          
-
-          </div>
-             
-
-            </ul>
-          </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Buttons for Modal & Printing -->
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Ajouter un Produit
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-2" id="print_bon">
+                            Imprimer
+                        </button>
+                    </div>
+                </ul>
+            </div>
         </div>
-      </nav>
-      
-      <div>
+    </nav>
+    
+    <!-- Search Form -->
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="cherche">
+            <div class="input-group mb-3 my-2">
+                <input type="text" class="form-control" placeholder="Recherche par Serial" name="search">
+                <button class="btn btn-primary" type="submit">Rechercher</button>
+            </div>
+        </form>
 
-  
-      <div class="container">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-              <th scope="col">check</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <form method="post" id="formulaire_bon">
-              {% csrf_token %}
-              <input type="hidden" name="action" value="print_bon"/>
-            {% for product in products %}
-              <tr>
-                <th scope="row">{{product.destignation}}</th>
-                <td>{{product.referance}}</td>
-                <td>{{product.serial_number}}</td>
-                <td>{{product.destination}}</td>
-                <td><input type="checkbox" name="choix" value="{{ product.id }}"/></td>
-              </tr>
-              
-              {% endfor %}
-            </form>
-              
-       
-          </tbody>
-        </table>
-      </div>  
-        <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form method="post">
-              {% csrf_token %}
-              <div class="mb-3">
-                  <label  class="form-label">Désignation</label>
-                  <input type="name" name="designation" class="form-control" required>
-
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Référence</label>
-                  <input type="name" class="form-control" name="reference" required>
-                </div>
-              <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Serial Numbers</label>
-                  <input type="name" class="form-control" name="serial" required>
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Destination</label>
-                  <input type="name" class="form-control" name="destination" required>
-                  <input  type="hidden" name="action" value="create_product"/>
-                </div>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button  class="btn btn-primary" id="print_button">Save changes</button>
-              </div>
-            </form> 
-      </div>
+        <!-- Products Table -->
+        <form method="post" id="formulaire_bon">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="print_bon"/>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Désignation</th>
+                        <th scope="col">Référence</th>
+                        <th scope="col">Serial Numbers</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.designation }}</td>
+                            <td>{{ product.reference }}</td>
+                            <td>{{ product.serial_number }}</td>
+                            <td>{{ product.destination }}</td>
+                            <td><input type="checkbox" name="choix" value="{{ product.id }}"/></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script>
-    $(document).ready(function(){
-      $("#print_bon").click(function(){
-        $("#formulaire_bon").submit();
-      });
-    });
-  </script>
-  </body>
+    <!-- Modal for Adding Product -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ajouter un Produit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="create_product">
+
+                        <div class="mb-3">
+                            <label class="form-label">Désignation</label>
+                            <input type="text" name="designation" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Référence</label>
+                            <input type="text" class="form-control" name="reference" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Serial Numbers</label>
+                            <input type="text" class="form-control" name="serial" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Destination</label>
+                            <input type="text" class="form-control" name="destination" required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            // Submit form for printing
+            $("#print_bon").click(function(){
+                $("#formulaire_bon").submit();
+            });
+
+            // AJAX form submission for creating a product
+            $("#productForm").submit(function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "",  // The current URL
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        alert("Produit ajouté avec succès !");
+                        location.reload(); // Refresh page to see the new product
+                    },
+                    error: function() {
+                        alert("Une erreur s'est produite !");
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
 </html>
